@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/style.css">
+    <title>Favorites</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row images"></div>
+    </div>
+
+    <script>
+        const images = document.querySelector('.images');
+        let arr1 = JSON.parse(localStorage.getItem("favorite"));
+        arr1.forEach(arr => {
+            const arrHTML = `<div id=${arr.id} class="col-3 box">
+            <img src="${arr.imageSrc}" alt="">
+            <span class="price">${arr.price} $</span>
+            <span class="name">${arr.name}</span>
+            <span class="year">${arr.year}</span>
+            <button id=${arr.id} class="btn btn-danger">Delete from favorites</button>
+        </div>`;
+
+        images.innerHTML += arrHTML;
+        });
+        
+        const buttons = document.querySelectorAll('.btn');
+        const boxes = Array.from(document.querySelectorAll('.images div'));
+
+        buttons.forEach(button=>{
+            button.addEventListener('click', function(){
+                const foundBox = boxes.find(box => box.id==button.id);
+                images.removeChild(foundBox);
+                
+            })
+        })
+
+
+    </script>
+
+</body>
+
+</html>
